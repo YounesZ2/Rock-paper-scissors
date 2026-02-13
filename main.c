@@ -10,15 +10,18 @@ That data will pass by conditionals.
 #include <stdlib.h>
 #include <time.h>
 
+int uservsbot(char, char);
+int robotchancelogic(char, int);
+
 int main()
 {
     //seeding
     srand(time(NULL));
-    int robotpick = rand() %100;
-    printf("%d", robotpick);
-    //Variables
-    char userpick[1];
     
+    //Variables
+    int robotpick = rand() %100;
+    char userpick[1];
+
     char robotpickchar[1];
     
     //print and input
@@ -39,11 +42,28 @@ int main()
         printf("%c, %d", robotpickchar[0], robotpick);
     }
     
-    //conditionals for comparation
+    //function that calls the user vs bot competition.
+
+    
+    return 0;
+}
+
+int uservsbot(char userpick, char robotpickchar)
+{
     if(userpick[0]== 'p' && robotpickchar[0] == 'r') // USER uses Paper. ROBOT uses Rock user wins this one.
     {
         printf("User has WON!!!");
     }
-    
-    return 0;
+    else if(userpick[0]== 'p' && robotpickchar[0] == 's')
+    {
+        printf("User lost because rock used scissors and you picked paper.");
+    } 
+    else if(userpick[0]== 's' && robotpickchar[0] == 'r')
+    {
+        printf("User lost because robot used rock and you picked scissors.");
+    } 
+    else if(userpick[0]== 's' && robotpickchar[0] == 'p')
+    {
+        printf("User won because robot used rock and you picked scissors.");
+    } 
 }
