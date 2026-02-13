@@ -10,8 +10,8 @@ That data will pass by conditionals.
 #include <stdlib.h>
 #include <time.h>
 
-int uservsbot(char, char);
-int robotchancelogic(char, int);
+void uservsbot(char userpick, char robotpickchar);
+char robotchancelogic(int robotrng);
 
 int main()
 {
@@ -20,50 +20,62 @@ int main()
     
     //Variables
     int robotpick = rand() %100;
-    char userpick[1];
-
-    char robotpickchar[1];
+    char userpick;
+    char robotpickchar;
     
     //print and input
     printf("Pick Rock, Paper, or Sissors\n");
-    scanf("%c", &userpick);
+    scanf(" %c", &userpick);
     
-    //robot logic conditional
-    if(robotpick >= 66){
-        robotpickchar[0] = 's';
-        printf("%c, %d", robotpickchar[0], robotpick);
-    }
-    else if(robotpick >= 33){
-        robotpickchar[0] = 'p';
-         printf("%c, %d", robotpickchar[0], robotpick);
-    }
-    else{
-        robotpickchar[0] = 'r';
-        printf("%c, %d", robotpickchar[0], robotpick);
-    }
-    
-    //function that calls the user vs bot competition.
-
+    //function that calls the user vs bot competition and robot RNG.
+    robotpickchar = robotchancelogic(robotpick);
+    uservsbot(userpick, robotpickchar);
     
     return 0;
 }
 
-int uservsbot(char userpick, char robotpickchar)
+char robotchancelogic(int robotrng)
 {
-    if(userpick[0]== 'p' && robotpickchar[0] == 'r') // USER uses Paper. ROBOT uses Rock user wins this one.
-    {
-        printf("User has WON!!!");
+
+    if(robotrng >= 66){
+        return 's';
     }
-    else if(userpick[0]== 'p' && robotpickchar[0] == 's')
+    else if(robotrng >= 33){
+        return 'r';
+    }
+    else{
+        return 'p';
+    }
+
+}
+
+void uservsbot(char userpick, char robotpickchar)
+{
+    if(userpick == 'p' && robotpickchar == 'r') // USER uses Paper. ROBOT uses Rock user wins this one.
     {
-        printf("User lost because rock used scissors and you picked paper.");
+        printf("User won because robot used rock and you picked paper");
+    }
+    else if(userpick == 'p' && robotpickchar  == 's')
+    {
+        printf("User lost because robot used scissors and you picked paper.");
     } 
-    else if(userpick[0]== 's' && robotpickchar[0] == 'r')
+    else if(userpick == 's' && robotpickchar  == 'r')
     {
         printf("User lost because robot used rock and you picked scissors.");
     } 
-    else if(userpick[0]== 's' && robotpickchar[0] == 'p')
+    else if(userpick == 's' && robotpickchar  == 'p')
     {
-        printf("User won because robot used rock and you picked scissors.");
-    } 
+        printf("User won because robot used paper and you picked scissors.");
+    }
+    else if(userpick == 'r' && robotpickchar  == 's')
+    {
+        printf("User won because robot used scissors and you picked rock.");
+    }
+    else if(userpick == 'r' && robotpickchar  == 'p')
+    {
+        printf("User lost because robot used paper and you picked rock.");
+    }
+    else{
+        printf("It's a tie!");
+    }
 }
